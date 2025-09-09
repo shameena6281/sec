@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developer Portfolio</title>
+  <style>
+    :root {
+      --primary: #6c63ff;
+      --accent: #ff6584;
+      --bg: #f9fafc;
+      --text: #222;
+      --card-bg: #fff;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+    }
+    header h1 { margin: 0; font-size: 1.8rem; }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 0.8rem;
+      font-weight: bold;
+    }
+    .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      color: var(--primary);
+      border-bottom: 3px dashed var(--accent);
+      display: inline-block;
+      padding-bottom: 0.3rem;
+    }
+    /* About Section - angled box */
+    .about {
+      background: var(--card-bg);
+      border: 3px solid var(--primary);
+      border-radius: 20px 0 20px 0;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .about img {
+      width: 200px;
+      border-radius: 50%;
+      margin-right: 2rem;
+      border: 4px solid var(--accent);
+    }
+    /* Skills with progress bars */
+    .skill {
+      margin-bottom: 1rem;
+    }
+    .skill-name { font-weight: bold; margin-bottom: 0.3rem; }
+    .skill-bar {
+      height: 15px;
+      border-radius: 10px;
+      background: #ddd;
+      overflow: hidden;
+    }
+    .skill-level {
+      height: 100%;
+      background: var(--accent);
+    }
+    /* Projects - row structure */
+    .project {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2rem;
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .project img {
+      width: 50%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .project-content {
+      padding: 1rem;
+      flex: 1;
+    }
+    .project:nth-child(even) {
+      flex-direction: row-reverse; /* alternate layout */
+    }
+    /* Contact */
+    .contact-form {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin-top: 2rem;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .contact-form button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+    .contact-form button:hover {
+      background: var(--accent);
+    }
+    footer {
+      background: var(--primary);
+      color: #fff;
+      text-align: center;
+      padding: 1.2rem;
+      margin-top: 2rem;
+    }
+    @media(max-width: 768px) {
+      .project { flex-direction: column; }
+      .project img { width: 100%; }
+      .about { flex-direction: column; text-align: center; }
+      .about img { margin: 0 0 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Jane Doe</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <div class="container">
+    <!-- About -->
+    <section id="about" class="about">
+      <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jane">
+      <div>
+        <h2 class="section-title">About Me</h2>
+        <p>Hello! I'm Jane, a full-stack developer who loves creative designs and problem-solving through code.</p>
+      </div>
+    </section>
+    <!-- Skills -->
+    <section id="skills">
+      <h2 class="section-title">Skills</h2>
+      <div class="skill"><div class="skill-name">HTML5</div><div class="skill-bar"><div class="skill-level" style="width:95%"></div></div></div>
+      <div class="skill"><div class="skill-name">CSS3</div><div class="skill-bar"><div class="skill-level" style="width:90%"></div></div></div>
+      <div class="skill"><div class="skill-name">JavaScript</div><div class="skill-bar"><div class="skill-level" style="width:85%"></div></div></div>
+      <div class="skill"><div class="skill-name">React</div><div class="skill-bar"><div class="skill-level" style="width:80%"></div></div></div>
+      <div class="skill"><div class="skill-name">Node.js</div><div class="skill-bar"><div class="skill-level" style="width:75%"></div></div></div>
+      <div class="skill"><div class="skill-name">Express.js</div><div class="skill-bar"><div class="skill-level" style="width:70%"></div></div></div>
+      <div class="skill"><div class="skill-name">MongoDB</div><div class="skill-bar"><div class="skill-level" style="width:65%"></div></div></div>
+      <div class="skill"><div class="skill-name">Python</div><div class="skill-bar"><div class="skill-level" style="width:60%"></div></div></div>
+      <div class="skill"><div class="skill-name">Git & GitHub</div><div class="skill-bar"><div class="skill-level" style="width:85%"></div></div></div>
+      <div class="skill"><div class="skill-name">UI/UX Design (Figma)</div><div class="skill-bar"><div class="skill-level" style="width:70%"></div></div></div>
+    </section>
+    <!-- Projects -->
+    <section id="projects">
+      <h2 class="section-title">Projects</h2>
+      <div class="project">
+        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80" alt="Project 1">
+        <div class="project-content">
+          <h3>Portfolio Website</h3>
+          <p>A portfolio built with React showing animations and responsive design.</p>
+        </div>
+      </div>
+      <div class="project">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Project 2">
+        <div class="project-content">
+          <h3>Task Manager App</h3>
+          <p>A full-stack MERN application with authentication and task management.</p>
+        </div>
+      </div>
+      <div class="project">
+        <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Project 3">
+        <div class="project-content">
+          <h3>Weather Dashboard</h3>
+          <p>Dashboard fetching live weather data using APIs, with charts and location search.</p>
+        </div>
+      </div>
+    </section>
+    <!-- Contact -->
+    <section id="contact">
+      <h2 class="section-title">Contact Me</h2>
+      <form class="contact-form">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+  </div>
+  <footer>
+    &copy; 2024 Jane Doe. All rights reserved.
+  </footer>
+</body>
+</html>
