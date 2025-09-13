@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>IRCTC — Editor (HTML + CSS only)</title>
+<style>
+  :root{
+    --maxw:900px;
+    --muted:#6b7280;
+    --accent:#0f172a;
+    --card:#fff;
+    --gap:16px;
+    --radius:12px;
+  }
+  *{box-sizing:border-box}
+  body{
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background:#f3f4f6; color:var(--accent); margin:0; -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:var(--maxw); margin:32px auto; padding:24px;}
+  .card{
+    background:var(--card);
+    border-radius:var(--radius);
+    padding:22px;
+    box-shadow:0 8px 28px rgba(2,6,23,0.06);
+  }
+
+  header{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:14px}
+  h1{font-size:18px; margin:0; font-weight:700}
+  .controls{display:flex; gap:8px; align-items:center}
+
+  .btn{
+    display:inline-block; padding:8px 12px;
+    border-radius:10px; cursor:pointer; text-decoration:none;
+    font-weight:600; font-size:13px;
+  }
+  .btn.primary{background:#0f172a; color:#fff}
+  .btn.ghost{background:transparent; color:var(--accent); border:1px solid #e6e7eb}
+
+  form{display:block}
+
+  input.title{
+    width:100%; font-size:28px; border:0; outline:none; font-weight:700;
+    margin:6px 0 8px; background:transparent;
+  }
+  input.subtitle{
+    width:100%; font-size:15px; border:0; outline:none; color:var(--muted);
+    margin-bottom:12px; background:transparent;
+  }
+
+  .toolbar{
+    display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px;
+  }
+  .toolbar .tool{
+    display:inline-flex; align-items:center; justify-content:center;
+    min-width:44px; min-height:36px; border-radius:8px; border:1px solid #e6e7eb;
+    background:#fff; font-weight:600; font-size:13px; color:var(--muted);
+    cursor:default; user-select:none;
+  }
+
+  .editor{
+    min-height:340px; border-radius:10px; padding:18px; border:1px solid #e6e7eb;
+    background:white; overflow:auto; color:var(--accent);
+  }
+  .editor:empty:before{content:attr(data-placeholder); color:var(--muted)}
+  .editor p{line-height:1.7; margin:0 0 1rem 0}
+
+  .cover-row{display:flex; gap:12px; align-items:center; margin-top:12px}
+  .cover-input{display:flex; gap:8px; align-items:center}
+  .cover-preview{max-height:120px; border-radius:10px; object-fit:cover}
+
+  .meta{display:flex; gap:12px; align-items:flex-start; margin-top:12px; flex-wrap:wrap}
+  .tags{flex:1; min-width:180px}
+  .tag-input{
+    width:100%; padding:10px 12px; border-radius:10px; border:1px solid #e6e7eb;
+    font-size:14px; color:var(--accent);
+  }
+  .tag-list{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+  .tag{background:#eef2ff; padding:6px 10px; border-radius:999px; font-size:13px; color:#3730a3}
+
+  footer{display:flex; justify-content:space-between; align-items:center; margin-top:18px; gap:12px; flex-wrap:wrap}
+  .note{color:var(--muted); font-size:13px}
+
+  /* responsive */
+  @media (max-width:640px){
+    .wrap{margin:12px;padding:12px}
+    input.title{font-size:22px}
+    .toolbar{gap:6px}
+  }
+
+  /* simple focus styles for accessibility */
+  input:focus, .tag-input:focus, .editor:focus{outline:3px solid rgba(59,130,246,0.12); outline-offset:3px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <h1>IRCTC — Draft editor</h1>
+        <div class="controls">
+          <!-- file input works without JS (selects a file but no preview without JS) -->
+          <label class="btn ghost" for="cover">Upload cover</label>
+          <input id="cover" name="cover" type="file" accept="image/*" style="display:none">
+          <a class="btn primary" href="#" aria-disabled="true">Publish</a>
+        </div>
+      </header>
+
+      <main>
+        <form action="#" method="post" enctype="multipart/form-data" novalidate>
+          <input name="title" class="title" placeholder="Write a title..." aria-label="Title">
+
+          <input name="subtitle" class="subtitle" placeholder="Write a subtitle (optional)..." aria-label="Subtitle">
+
+          <div class="toolbar" role="toolbar" aria-label="Formatting toolbar">
+            <!-- non-functional visual tools (CSS-only) -->
+            <div class="tool" title="Bold">B</div>
+            <div class="tool" title="Italic"><i>I</i></div>
+            <div class="tool" title="Underline"><u>U</u></div>
+            <div class="tool" title="List">• List</div>
+            <div class="tool" title="Link">🔗</div>
+            <div class="tool" title="Image">🖼️</div>
+            <div class="tool" title="Clear">Clear</div>
+          </div>
+
+          <!-- contenteditable works without JS for typing; submitting this to a server requires server support -->
+          <div id="editor" class="editor" contenteditable="true" data-placeholder="Write your story..." aria-label="Post content editor"></div>
+
+          <div class="cover-row">
+            <div class="cover-input">
+              <label class="note" for="cover">Cover file:</label>
+              <span class="note">Select a file using the 'Upload cover' control above (no preview without JS)</span>
+            </div>
+          </div>
+
+          <div class="meta">
+            <div class="tags">
+              <label for="tags" class="note">Tags (comma separated)</label>
+              <input id="tags" name="tags" class="tag-input" placeholder="e.g. travel, food, tips" aria-label="Tags">
+              <div class="tag-list" aria-hidden="true">
+                <span class="tag">example</span>
+                <span class="tag">demo</span>
+              </div>
+            </div>
+
+            <div style="min-width:140px;text-align:right">
+              <div class="note">Tip: you can use your browser's keyboard shortcuts (Ctrl/Cmd+B / Ctrl/Cmd+I)</div>
+            </div>
+          </div>
+
+          <footer>
+            <div class="note">This is an HTML+CSS-only template — no publish/save functionality included.</div>
+            <div>
+              <button type="submit" class="btn primary">Submit (form)</button>
+            </div>
+          </footer>
+        </form>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

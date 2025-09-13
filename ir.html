@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>IRCTC — Train Booking (Clone)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f6f8fa;
+      --card:#ffffff;
+      --accent:#0067b8; /* indian-rail-like blue */
+      --accent-2:#00a17a; /* green */
+      --muted:#6b7280;
+      --glass: rgba(255,255,255,0.6);
+      --radius:12px;
+      --max-width:1100px;
+      --shadow: 0 6px 20px rgba(12, 15, 20, 0.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,var(--bg), #eef3f7 60%);
+      color:#0f172a;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:32px 16px;
+      display:flex;
+      justify-content:center;
+    }
+    .wrap{width:100%;max-width:var(--max-width);} 
+
+    /* Header */
+    header{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:16px;margin-bottom:28px;
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#3098ff);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;box-shadow:var(--shadow)
+    }
+    .brand h1{font-size:18px;margin:0}
+    nav{display:flex;gap:12px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600}
+    nav a.cta{background:var(--accent);color:white}
+
+    /* Hero */
+    .hero{background:linear-gradient(90deg, rgba(0,103,184,0.06), rgba(0,161,122,0.04));border-radius:16px;padding:26px;display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:center;box-shadow:var(--shadow);}
+    .hero-left h2{margin:0 0 8px 0;font-size:24px}
+    .hero-left p{margin:0;color:var(--muted)}
+
+    /* Search form */
+    .search{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 10px 30px rgba(11,22,36,0.06)}
+    .row{display:flex;gap:10px}
+    .field{flex:1;display:flex;flex-direction:column}
+    .field label{font-size:12px;color:var(--muted);margin-bottom:6px}
+    .field input, .field select{padding:10px 12px;border-radius:10px;border:1px solid #e6e9ee;font-size:14px}
+    .cta-row{display:flex;gap:10px;align-items:center;margin-top:12px}
+    .btn{background:var(--accent);color:white;padding:10px 14px;border-radius:10px;border:none;font-weight:700;cursor:pointer}
+    .btn.secondary{background:transparent;color:var(--accent);border:1px solid rgba(0,103,184,0.15)}
+
+    /* Content area */
+    .content{margin-top:22px;display:grid;grid-template-columns:1fr 320px;gap:20px}
+
+    /* Train list */
+    .trains{display:grid;gap:12px}
+    .train-card{background:var(--card);padding:14px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;gap:16px;box-shadow:var(--shadow)}
+    .train-info{min-width:0}
+    .train-top{display:flex;gap:10px;align-items:center}
+    .train-name{font-weight:700}
+    .train-route{color:var(--muted);font-size:13px;margin-top:6px}
+    .train-meta{display:flex;gap:12px;align-items:center;color:var(--muted);font-size:13px}
+    .badge{padding:6px 10px;border-radius:8px;background:linear-gradient(90deg, rgba(0,103,184,0.08), rgba(0,161,122,0.06));font-weight:700}
+    .price{font-size:18px;font-weight:800;color:var(--accent-2)}
+
+    /* Sidebar */
+    .sidebar{background:linear-gradient(180deg, #fff, #fbfdff);padding:16px;border-radius:12px;box-shadow:var(--shadow)}
+    .summary-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+
+    /* Responsive */
+    @media (max-width:1000px){
+      .hero{grid-template-columns:1fr 320px}
+      .content{grid-template-columns:1fr}
+      .sidebar{order:2}
+    }
+    @media (max-width:720px){
+      header{flex-direction:column;align-items:flex-start}
+      .hero{grid-template-columns:1fr;}
+      .hero-right{order:2}
+      .search .row{flex-direction:column}
+      .row{flex-direction:column}
+      nav{width:100%;justify-content:flex-start}
+      .brand h1{font-size:16px}
+    }
+
+    /* small utilities */
+    .muted{color:var(--muted)}
+    .small{font-size:13px}
+    .ghost{background:transparent;border:1px dashed rgba(0,0,0,0.06)}
+
+    /* simple hover */
+    .train-card:hover{transform:translateY(-4px);transition:all .22s ease}
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">IR</div>
+        <div>
+          <h1>IRCTC — Clone</h1>
+          <div class="small muted">Book trains | PNR status | Timetable</div>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#">Trains</a>
+        <a href="#">Offers</a>
+        <a href="#">Train Status</a>
+        <a class="cta" href="#">Login / Sign up</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-left">
+        <h2>India's fastest way to check trains and fares</h2>
+        <p class="muted">Search trains, compare fares and reserve your seat. Clean responsive layout that adapts from mobile to desktop.</p>
+
+        <div style="margin-top:14px" class="search">
+          <form id="searchForm">
+            <div class="row">
+              <div class="field">
+                <label for="from">From</label>
+                <input id="from" placeholder="e.g. New Delhi (NDLS)" />
+              </div>
+              <div class="field">
+                <label for="to">To</label>
+                <input id="to" placeholder="e.g. Mumbai Central (BCT)" />
+              </div>
+            </div>
+
+            <div class="row" style="margin-top:10px">
+              <div class="field">
+                <label for="date">Date</label>
+                <input id="date" type="date" />
+              </div>
+              <div class="field">
+                <label for="class">Class</label>
+                <select id="class">
+                  <option>All Classes</option>
+                  <option>1A</option>
+                  <option>2A</option>
+                  <option>3A</option>
+                  <option>SL</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="cta-row">
+              <button class="btn" type="button">Search Trains</button>
+              <button class="btn secondary" type="button">Clear</button>
+              <div style="margin-left:auto" class="small muted">Showing sample data — clone UI only</div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div style="background: linear-gradient(180deg,#fff,#f8feff);padding:18px;border-radius:12px;box-shadow:var(--shadow)">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:72px;height:72px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#3098ff);display:flex;align-items:center;justify-content:center;color:white;font-weight:800">TR</div>
+            <div>
+              <div style="font-weight:800">IRCTC Plus</div>
+              <div class="muted small">Faster search, instant alerts</div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px;font-size:13px;color:var(--muted)">Plan your journey — check availability, expected fare and choose seats. This section is static for the clone but demonstrates sidebar info.</div>
+
+          <div style="display:flex;gap:10px;margin-top:12px">
+            <button class="btn" style="flex:1">Explore Plans</button>
+            <button class="btn secondary">Help</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="content">
+      <div>
+        <h3 style="margin:18px 0 10px 0">Available trains</h3>
+
+        <div class="trains">
+          <!-- Train card 1 -->
+          <div class="train-card">
+            <div class="train-info">
+              <div class="train-top">
+                <div>
+                  <div class="train-name">Rajdhani Express <span style="font-weight:500;color:var(--muted);font-size:14px">(12301)</span></div>
+                  <div class="train-route">NDLS → BCT • 16h 40m • Daily</div>
+                </div>
+              </div>
+              <div class="train-meta" style="margin-top:10px">
+                <div class="badge">AC 3 Tier</div>
+                <div class="small muted">Dep: 16:00</div>
+                <div class="small muted">Arr: 08:40 +1</div>
+              </div>
+            </div>
+            <div style="text-align:right">
+              <div class="price">₹ 2,450</div>
+              <div class="small muted" style="margin-top:8px">Seats available</div>
+              <div style="margin-top:10px"><button class="btn" style="padding:8px 10px">Book</button></div>
+            </div>
+          </div>
+
+          <!-- Train card 2 -->
+          <div class="train-card">
+            <div class="train-info">
+              <div class="train-top">
+                <div>
+                  <div class="train-name">Shatabdi Express <span style="font-weight:500;color:var(--muted);font-size:14px">(12005)</span></div>
+                  <div class="train-route">NDLS → BPL • 4h 30m • Mon,Wed,Fri</div>
+                </div>
+              </div>
+              <div class="train-meta" style="margin-top:10px">
+                <div class="badge">Chair Car</div>
+                <div class="small muted">Dep: 06:00</div>
+                <div class="small muted">Arr: 10:30</div>
+              </div>
+            </div>
+            <div style="text-align:right">
+              <div class="price">₹ 850</div>
+              <div class="small muted" style="margin-top:8px">Limited seats</div>
+              <div style="margin-top:10px"><button class="btn" style="padding:8px 10px">Book</button></div>
+            </div>
+          </div>
+
+          <!-- Train card 3 -->
+          <div class="train-card">
+            <div class="train-info">
+              <div class="train-top">
+                <div>
+                  <div class="train-name">Mail/Express <span style="font-weight:500;color:var(--muted);font-size:14px">(19021)</span></div>
+                  <div class="train-route">BCT → PUNE • 3h 20m • Daily</div>
+                </div>
+              </div>
+              <div class="train-meta" style="margin-top:10px">
+                <div class="badge">Sleeper</div>
+                <div class="small muted">Dep: 14:10</div>
+                <div class="small muted">Arr: 17:30</div>
+              </div>
+            </div>
+            <div style="text-align:right">
+              <div class="price">₹ 220</div>
+              <div class="small muted" style="margin-top:8px">Available</div>
+              <div style="margin-top:10px"><button class="btn" style="padding:8px 10px">Book</button></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <aside class="sidebar">
+        <div class="summary-row"><div><strong>Quick actions</strong></div></div>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <button class="btn">Check PNR Status</button>
+          <button class="btn secondary">Train Timetable</button>
+          <button class="btn secondary">Cancel Ticket</button>
+        </div>
+
+        <hr style="margin:12px 0;border:none;border-top:1px solid #eef2f6">
+
+        <div>
+          <div style="font-weight:700">Helpful tips</div>
+          <ul style="margin:8px 0 0 18px;color:var(--muted)">
+            <li>Book early to get confirmed berths.</li>
+            <li>Check refund rules and cancellation window.</li>
+            <li>Use the official IRCTC app for live updates.</li>
+          </ul>
+        </div>
+      </aside>
+    </main>
+
+    <footer style="margin-top:28px;text-align:center;color:var(--muted);font-size:13px">
+      © IRCTC Clone — UI demo. This is for learning and UI practice only.
+    </footer>
+  </div>
+</body>
+</html>

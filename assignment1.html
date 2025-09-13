@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Header Navigation</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* HEADER STYLING */
+    header {
+      display: flex;
+      justify-content: space-between; /* Name left, nav right */
+      align-items: center;
+      background: #333;
+      color: white;
+      padding: 15px 20px;
+      flex-wrap: wrap; /* allows wrapping on small screens */
+    }
+
+    /* Name / Logo */
+    header h1 {
+      font-size: 24px;
+    }
+
+    /* Navigation bar */
+    nav {
+      display: flex;
+      gap: 15px; /* spacing between links */
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ff9800;
+    }
+
+    /* Responsive for small screens */
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;  /* stack vertically */
+        align-items: flex-start; /* align left */
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER WITH FLEXBOX -->
+  <header>
+    <h1>Shameena</h1>   <!-- Your Name -->
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Courses</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+</body>
+</html>
