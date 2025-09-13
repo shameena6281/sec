@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>WORKING ON LISTS</h1>
+
+    <br>
+    <h2>DOING TASK</h2>
+    <style>
+    body
+    { 
+          background-color: rgb(255, 0, 174);
+          padding:20px;
+           margin:50px;
+          border-radius:5px;
+          margin:20px;
+          border:40px solid black;
+    }
+    </style>
+    
+    <input type="text" id="myinput"><br><br><br>
+    <button id="add" style="color:rgba(0, 68, 255, 0.608)"> ➕➕add Me</button>
+    <button id="delete" style="color:rgba(0, 255, 51, 0.608)">➖➖remove Me</button>
+    <button id="clear"  style="color:rgba(255, 0, 0, 0.608)">💯complete</button>
+    <ul id="list">
+        <li> maths </li>
+        <li> science</li>
+        <li> social</li>
+
+    </ul>
+    
+       <script>
+        $(document).ready(function(){
+            $("body").css("background-color","lightblue");
+            $("#add").css({
+                 $("#add").css({
+                "background-color": "orange",
+                "padding":"20px",
+                "margin":"50px",
+                "border-radius":"5px"
+            });
+            });
+             $("#clear").css({
+                "background-color": "orange",
+                "padding":"20px",
+                "margin":"50px",
+                "border-radius":"5px"
+            });
+             $("#delete").css({
+                "background-color": "orange",
+                "padding":"20px",
+                "margin":"50px",
+                "border-radius":"5px"
+            });
+            $("#add").click(function(){
+                let task=$("#myinput").val();
+                if(task){
+                    $("#list").append("<li>" + task + "</li>");
+                    $("#myinput").val('');
+                    $("#list").css("color","green");
+                    
+                    
+                }
+            });
+             $("#delete").click(function(){
+                
+             $("#list li:first").remove();
+                
+                
+            });
+            $("#clear").click(function(){
+                $("#list").empty();
+            });
+        });
+          
+       </script> 
+</body>
+</html>
