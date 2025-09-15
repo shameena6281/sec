@@ -21,9 +21,11 @@
     </style>
     
     <input type="text" id="myinput"><br><br><br>
+    <input type="number" id="number"><br><br><br>
     <button id="add" style="color:rgba(0, 68, 255, 0.608)"> ➕➕add Me</button>
     <button id="delete" style="color:rgba(0, 255, 51, 0.608)">➖➖remove Me</button>
     <button id="clear"  style="color:rgba(255, 0, 0, 0.608)">💯complete</button>
+    <h2 id="hi">hi </h2>
     <ul id="list">
         <li> maths </li>
         <li> science</li>
@@ -73,6 +75,9 @@
             $("#clear").click(function(){
                 $("#list").empty();
             });
+            $("#add").hover(function(){
+                $("h2").text("hover occurs");
+             });
         });
           
        </script> 
