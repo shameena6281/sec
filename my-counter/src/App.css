@@ -1,0 +1,50 @@
+.App{
+  
+  background-color: blue;
+  min-height: 100vh; 
+  width: 100vw;       
+  display: flex;            
+  flex-direction: column;  
+  justify-content: center;  
+  align-items: center;      
+  font-family: Arial, sans-serif;text-align: center; border-radius: 5px;margin;
+}
+
+
+.App h2{
+  font-family: Arial,Sans-serif;
+  font-size:2rem;
+  margin-bottom: 10%;
+
+}
+.container{
+  border:5px solid white;
+  border-radius: 10px;
+
+  margin: 40px;
+   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+   padding: 10px;background-color: palevioletred;
+}
+.buttons{
+  display: flex;
+  justify-content: center;
+  gap:20px;
+  padding:20px;
+  
+  
+  border-radius: 5px;
+  margin-top: 20px;
+}
+button:nth-child(1){
+  background-color: #00ffff;
+  color:goldenrod;
+}
+button:nth-child(2){
+  background-color: rgb(255, 0, 0);
+  color:goldenrod;
+}
+button:nth-child(3){
+  background-color: rgb(255, 0, 242);
+  color:goldenrod;
+}
+  

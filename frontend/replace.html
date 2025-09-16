@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Editable To-Do List</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      padding: 8px;
+      margin: 5px 0;
+      background: #f2f2f2b9;
+      border-radius: 5px;
+      cursor: pointer;
+      
+    }
+    input.edit-box {
+      width: 90%;
+      padding: 6px;
+      font-size: 16px;background-color: aqua;
+    }
+  </style>
+</head>
+<body>
+  <h2>My To-Do List</h2>
+  
+  <input type='text' class='inputbox'  width= 500px  placeholder:"enter any task"><br>
+
+  <br>
+  <br>
+  <button class="task" id ="task">ADD TASK</button>
+  <ul id="todoList">
+    <li>Buy groceries</li>
+    <li>Complete homework</li>
+    <li>Call a friend</li>
+  </ul>
+
+  <script>
+    $(document).ready(function(){
+
+    
+      $("#todoList").on("dblclick", "li",function(){
+        let currentText = $(this).text();   
+        let inputBox = $("<input type='text' class='edit-box'>")
+                          .val(currentText); 
+
+        $(this).html(inputBox);  
+        inputBox.focus();      
+        inputBox.keydown(function(e){
+          if(e.key === "Enter"){  
+            let updatedText = $(this).val();
+            $(this).parent().text(updatedText); 
+          }
+        });
+       
+        
+      });
+
+    });
+  </script>
+</body>
+</html>
